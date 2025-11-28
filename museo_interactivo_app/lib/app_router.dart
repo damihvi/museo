@@ -8,18 +8,9 @@ import 'pages/donaciones_sala_page.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: [
-    GoRoute(
-      path: '/',
-      builder: (_, __) => const MuseoHomePage(),
-    ),
-    GoRoute(
-      path: '/salas',
-      builder: (_, __) => const SalasImagePage(),
-    ),
-    GoRoute(
-      path: '/plan_visita',
-      builder: (_, __) => const PlanVisitaPage(),
-    ),
+    GoRoute(path: '/', builder: (_, __) => const MuseoHomePage()),
+    GoRoute(path: '/salas', builder: (_, __) => const SalasImagePage()),
+    GoRoute(path: '/plan_visita', builder: (_, __) => const PlanVisitaPage()),
     GoRoute(
       path: '/tienda_recuerdos',
       builder: (_, __) => const TiendaRecuerdosPage(),

@@ -13,7 +13,6 @@ class _PlanVisitaPageState extends State<PlanVisitaPage> {
     5,
     (index) => TextEditingController(),
   );
-  
   String resultText = '';
 
   @override
@@ -25,41 +24,38 @@ class _PlanVisitaPageState extends State<PlanVisitaPage> {
   }
 
   void calculateTotalTime() {
-    double Tiempototal = 0.0;
-    int roomsWithTime = 0;
+    double totalTime = 0.0;
+    int roomCount = 0;
 
-    for (int i = 0; i < _controllers.length; i++) {
-      final timeText = _controllers[i].text.trim();
-      if (timeText.isNotEmpty) {
-        final time = double.tryParse(timeText.replaceAll(',', '.')) ?? 0.0;
+    for (var controller in _controllers) {
+      final text = controller.text.trim();
+      if (text.isNotEmpty) {
+        final time = double.tryParse(text) ?? 0.0;
         if (time > 0) {
-          Tiempototal += time;
-          roomsWithTime++;
+          totalTime += time;
+          roomCount++;
         }
       }
     }
 
-    if (roomsWithTime == 0) {
+    if (roomCount == 0) {
       setState(() {
-        resultText = 'Por favor, ingrese el tiempo de una sala';
+        resultText = 'Por favor, ingrese el tiempo de al menos una sala';
       });
       return;
     }
 
-    String visita;
-    if (Tiempototal < 60) {
-      visita = 'Visita corta';
-    } else if (Tiempototal <= 120) {
-      visita = 'Visita media';
-    } else {
-      visita = 'Visita larga';
-    }
+    String visitType = totalTime < 60
+        ? 'Visita corta'
+        : totalTime <= 120
+        ? 'Visita media'
+        : 'Visita larga';
 
     setState(() {
-      resultText = 
-        'Tiempo total: ${Tiempototal.toStringAsFixed(0)} minutos (${(Tiempototal / 60).toStringAsFixed(1)} horas)\n\n'
-        'Salas visitadas: $roomsWithTime\n\n'
-        'Tipo de visita: $visita';
+      resultText =
+          'Tiempo total: ${totalTime.toInt()} minutos (${(totalTime / 60).toStringAsFixed(1)} horas)\n'
+          'Salas visitadas: $roomCount\n'
+          'Tipo de visita: $visitType';
     });
   }
 
@@ -68,9 +64,9 @@ class _PlanVisitaPageState extends State<PlanVisitaPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Planificar Visita'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+        leading: TextButton(
           onPressed: () => context.go('/'),
+          child: const Text('Volver'),
         ),
       ),
       body: SingleChildScrollView(
@@ -79,13 +75,8 @@ class _PlanVisitaPageState extends State<PlanVisitaPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Text(
-              'Ingrese el tiempo estimado para cada sala',
+              'Ingrese el tiempo estimado para cada sala (minutos)',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Tiempo en minutos',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
             const SizedBox(height: 16),
 
@@ -95,9 +86,8 @@ class _PlanVisitaPageState extends State<PlanVisitaPage> {
                 child: TextField(
                   controller: _controllers[index],
                   decoration: InputDecoration(
-                    labelText: 'Sala ${index + 1} (minutos)',
+                    labelText: 'Sala ${index + 1}',
                     border: const OutlineInputBorder(),
-                    prefixIcon: const Icon(Icons.museum),
                   ),
                   keyboardType: TextInputType.number,
                 ),
@@ -125,10 +115,7 @@ class _PlanVisitaPageState extends State<PlanVisitaPage> {
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: Colors.blue.shade200),
                 ),
-                child: Text(
-                  resultText,
-                  style: const TextStyle(fontSize: 16, height: 1.5),
-                ),
+                child: Text(resultText, style: const TextStyle(fontSize: 16)),
               ),
           ],
         ),

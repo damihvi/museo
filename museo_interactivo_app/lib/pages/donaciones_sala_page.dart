@@ -11,7 +11,7 @@ class DonacionesSalaPage extends StatefulWidget {
 class _DonacionesSalaPageState extends State<DonacionesSalaPage> {
   final List<String> salas = [];
   final List<double> montos = [];
-  
+
   String salaText = '';
   String montoText = '';
   String resultText = '';
@@ -39,7 +39,8 @@ class _DonacionesSalaPageState extends State<DonacionesSalaPage> {
       montos.add(monto);
       salaText = '';
       montoText = '';
-      resultText = 'Donación agregada a la sala $sala  \cantidad${monto.toStringAsFixed(2)}';
+      resultText =
+          'Donación agregada a la sala $sala  \cantidad${monto.toStringAsFixed(2)}';
     });
   }
 
@@ -52,7 +53,7 @@ class _DonacionesSalaPageState extends State<DonacionesSalaPage> {
     }
 
     double total = 0.0;
-    
+
     for (int i = 0; i < montos.length; i++) {
       total += montos[i];
     }
@@ -62,9 +63,9 @@ class _DonacionesSalaPageState extends State<DonacionesSalaPage> {
 
     setState(() {
       resultText =
-        'Total recaudado: \$${total.toStringAsFixed(2)}\n'
-        'Promedio por donación: \$${promedio.toStringAsFixed(2)}\n'
-        'Cantidad de donaciones: $cantidad';
+          'Total recaudado: \$${total.toStringAsFixed(2)}\n'
+          'Promedio por donación: \$${promedio.toStringAsFixed(2)}\n'
+          'Cantidad de donaciones: $cantidad';
     });
   }
 

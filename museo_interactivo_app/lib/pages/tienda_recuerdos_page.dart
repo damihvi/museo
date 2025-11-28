@@ -40,9 +40,9 @@ class _TiendaRecuerdosPage extends State<TiendaRecuerdosPage> {
 
     setState(() {
       resultText =
-        'Producto: $Producto\n'
-        'cantidad: ${amount.toStringAsFixed(1)}\n'
-        'total: \$${total.toStringAsFixed(2)}';
+          'Producto: $Producto\n'
+          'cantidad: ${amount.toStringAsFixed(1)}\n'
+          'total: \$${total.toStringAsFixed(2)}';
     });
   }
 
