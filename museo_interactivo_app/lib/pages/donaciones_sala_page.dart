@@ -130,15 +130,6 @@ class _DonacionesSalaPageState extends State<DonacionesSalaPage> {
                       child: ListTile(
                         title: Text(salas[index]),
                         subtitle: Text('\$${montos[index].toStringAsFixed(2)}'),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            setState(() {
-                              salas.removeAt(index);
-                              montos.removeAt(index);
-                            });
-                          },
-                        ),
                       ),
                     );
                   },
